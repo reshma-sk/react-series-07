@@ -37,40 +37,29 @@ const RestaurantMenu = ()=>{
     
     
     return( 
-        <div className="flex flex-col">
+        <div className="w-[60%]">
           <h3 className="text-center font-bold">Menu</h3>
           {itemCards.length ? (
             itemCards.map((item) => {
-             const {
-            id,
-            name,
-            price,
-            defaultPrice,
-            ratings,
-            imageId,
-            description,
-          } = item.card.info;
-          return (
-            <div key={id} className="w-[80%] flex justify-evenly items-end mt-2 border border-b-black">
-              <div className="flex flex-col justify-start items-center">
-                <h2>{name}</h2>
-                <h4>₹{price / 100 || defaultPrice / 100}</h4>
-                <p>{description && description.slice(0, 60) || "Dummy"}</p>
-                <h4 className="rating">
+            const {id,name,price,defaultPrice,ratings,imageId,description} = item.card.info;
+            return (
+              <div key={id} className="flex justify-between items-center pt-[40px] pb-[40px] gap-3 border border-black border-b-4">
+                <div className="flex flex-col gap-2">
+                  <h2>{name}</h2>
+                  <h4>₹{price / 100 || defaultPrice / 100}</h4>
+                  <p>{description && description.slice(0, 60) || "Dummy"}</p>
+                  <h4 className="rating">
                    <MdStarRate className="border-6" style={ratings?.aggregatedRating?.rating > 4.0 ? {backgroundColor:'green'}:{backgroundColor:'red'}}/>
-                  <span>
-                    {ratings?.aggregatedRating?.rating || 3.8} (
-                    {ratings?.aggregatedRating?.ratingCountV2 || 6})
-                  </span>
-                </h4>
+                  </h4>
+                </div>
+
+                <div className="w-[150px] h-[120px] object-cover border-r-2">
+                  <img className = "w-14" src={CDN_URL + imageId} alt={name} />
+                  <button className="text-green bg-white">ADD</button>
+                </div>
               </div>
-              <div className="right">
-                <img className = "w-14" src={CDN_URL + imageId} alt={name} />
-                <button className="add-btn">ADD</button>
-              </div>
-            </div>
-          );
-        })
+            );
+          })
       ) : (
         <h2>No items available</h2>
       )}      
